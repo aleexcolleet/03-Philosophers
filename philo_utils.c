@@ -7,11 +7,11 @@ void	error_exit(const char *error)
 
 void	leaving_safely(t_data *data)
 {
-	int	i;
-	t_philo *philo;
+	int		i;
+	t_philo	*philo;
 
 	i = -1;
-	while(++i < data->num_philo)
+	while (++i < data->num_philo)
 	{
 		philo = data->philos + 1;
 		safe_mutex_handle(&philo->philo_mutex, DESTROY, data);
@@ -43,22 +43,31 @@ long	get_time(t_time_code time_code)
 		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 	else if (MICROSECOND == time_code)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
-	return (1337);	
-
+	return (1337);
 }
-
 //Precise usleep
-/*start registra el tiempo de inicio en microsegundos utilizando la función gettime (no proporcionada en el código, pero se asume que devuelve el tiempo actual en microsegundos).
-La función entra en un bucle mientras el tiempo transcurrido desde el inicio es menor que el tiempo deseado (usec). Dentro del bucle, se verifica si la simulación ha terminado llamando a la función simulation_finished.
-Se calcula el tiempo transcurrido (elapsed) y el tiempo restante (rem) para cumplir con el tiempo total deseado (usec).
-Si el tiempo restante (rem) es mayor que 10,000 microsegundos (0.01 segundos), la función llama a usleep para dormir durante la mitad del tiempo restante (rem / 2). Esto se hace para evitar esperas ocupadas innecesarias cuando el tiempo restante es grande.
-Si el tiempo restante es menor o igual a 10,000 microsegundos, la función entra en un bucle de espera ocupada (while) hasta que se haya alcanzado el tiempo deseado (usec). Esta espera ocupada proporciona una mayor precisión en períodos de tiempo más cortos.
+/*start registra el tiempo de inicio en microsegundos utilizando 
+ * la función gettime (no proporcionada en el código, pero se asume 
+ * que devuelve el tiempo actual en microsegundos).
+La función entra en un bucle mientras el tiempo transcurrido desde
+el inicio es menor que el tiempo deseado (usec). Dentro del bucle, 
+se verifica si la simulación ha terminado llamando a la función 
+simulation_finished.
+Se calcula el tiempo transcurrido (elapsed) y el tiempo restante (rem) 
+para cumplir con el tiempo total deseado (usec).
+Si el tiempo restante (rem) es mayor que 10,000 microsegundos
+(0.01 segundos), la función llama a usleep para dormir durante 
+la mitad del tiempo restante (rem / 2). Esto se hace para evitar 
+esperas ocupadas innecesarias cuando el tiempo restante es grande.
+Si el tiempo restante es menor o igual a 10,000 microsegundos, 
+la función entra en un bucle de espera ocupada (while) 
+hasta que se haya alcanzado el tiempo deseado (usec). 
+Esta espera ocupada proporciona una mayor precisión
+en períodos de tiempo más cortos.
 */
-
 
 void	precise_usleep(long usec, t_data *data)
 {
-
 	long	start;
 	long	elapsed;
 	long	rem;
@@ -79,7 +88,7 @@ void	precise_usleep(long usec, t_data *data)
 }
 
 //make the sistem fair
-void de_shyncronize_philos(t_philo *philo)
+void	de_shyncronize_philos(t_philo *philo)
 {
 	if (philo->data->num_philo % 2 == 0)
 	{

@@ -29,3 +29,38 @@ void	increase_long(t_mtx *mutex, long *value, t_data *data)
 	(*value)++;
 	safe_mutex_handle(mutex, UNLOCK, data);
 }
+//I'm using this function to fit with norminette terms. Just so that 
+//I use less lines per fucntion.
+
+void	dinner_beggin_utils(t_data *data, int i)
+{
+	if (i == 1)
+	{
+		safe_thread_handle(&data->monitor, monitor_dinner, data, CREATE);
+		data->start_simulation = get_time(MILLISECOND);
+		set_bool(&data->table_mutex, &data->all_threads_ready, true, data);
+		return ;
+	}
+	else if (i == 2)
+	{
+		set_bool(&data->table_mutex, &data->end_simulation, true, data);
+		safe_thread_handle(&data->monitor, NULL, NULL, JOIN);
+		return ;
+	}
+	return ;
+}
+
+int	dinner_beggin_utils_extended(t_data *data, int i)
+{
+	while (++i < data->num_philo)
+	{
+		if (0 > safe_thread_handle(&data->philos[i].thread_id,
+				NULL, NULL, JOIN))
+		{
+			data->error = 2;
+			error_exit("thread managing error\n");
+			return (2);
+		}
+	}
+	return (1);
+}

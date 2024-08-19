@@ -28,8 +28,8 @@ static void	passing_args(int as, char **av, t_data *p)
 	else
 		p->how_many_meals = -1;
 }
-
-//args (number of philosophers)(time to die)(time_to_sleep) *opcional(time each philo must eat)
+//args (number of philosophers)(time to die)(time_to_sleep)
+//	*opcional(time each philo must eat)
 //
 //Red
 //all args must be numeric
@@ -43,9 +43,10 @@ static void	passing_args(int as, char **av, t_data *p)
  * [4] time_to_sleep
  * [5] [number_of_times_each_philosopher_must_eat]
 */
+
 int	main(int as, char **av)
 {
-	t_data *data;
+	t_data	*data;
 
 	if (as < 5 || as > 6)
 	{
@@ -58,15 +59,10 @@ int	main(int as, char **av)
 	passing_args(as, av, data);
 	if (2 == init_structure(data))
 		return (2);
-	if (-1 == data->error)
+	if (-1 == data->error || 0 != dinner_must_beggin(data))
 	{
 		help_msg();
-		leaving_safely(data); 
-		return (2);
-	}
-	if (0 != dinner_must_beggin(data))
-	{
-		printf("something failed\n");
+		leaving_safely(data);
 		return (2);
 	}
 	leaving_safely(data);

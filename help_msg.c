@@ -1,10 +1,5 @@
 #include "philo.h"
-/*
-void	clean_exit(t_data *p)
-{
-	free(p);
-}
-*/
+
 void	help_params(void)
 {
 	printf("Params must be:\n\n");

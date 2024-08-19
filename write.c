@@ -15,7 +15,6 @@ void	write_status(t_philo_status status, t_philo *philo, t_data *data)
 	if (get_bool(&philo->philo_mutex, &philo->full, philo->data))
 		return ;
 	safe_mutex_handle(&philo->data->write_mutex, LOCK, data);
-	
 	if ((TAKE_FIRST_FORK == status || TAKE_SECOND_FORK == status)
 		&& !simulation_finished(philo->data))
 		printf("%-6ld %d has taken a fork\n", elapsed, philo->id);

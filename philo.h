@@ -52,8 +52,8 @@ typedef enum e_opcode
 	DETACH,
 }		t_opcode;
 
-typedef pthread_mutex_t t_mtx;
-typedef struct s_data t_data;
+typedef pthread_mutex_t	t_mtx;
+typedef struct s_data	t_data;
 
 //FORK STRUCT
 typedef struct s_fork
@@ -75,28 +75,27 @@ typedef struct s_philo
 	t_fork			*second_fork;
 	t_mtx			philo_mutex; //useful for races with the monitor
 	t_data			*data;
-}
-	t_philo;
+}	t_philo;
 
 struct s_data
 {
-	t_mtx	table_mutex;
-	t_mtx	write_mutex;
+	t_mtx		table_mutex;
+	t_mtx		write_mutex;
 	pthread_t	monitor;
 
 	//general lists
-	long	num_philo;	
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	how_many_meals;
-	long	start_simulation;
-	bool	end_simulation;
-	bool	all_threads_ready; //to then syncro philos
-	long	threads_running_nbr;
-	int		error;
-	t_fork	*forks;
-	t_philo	*philos;
+	long		num_philo;	
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
+	long		how_many_meals;
+	long		start_simulation;
+	bool		end_simulation;
+	bool		all_threads_ready; //to then syncro philos
+	long		threads_running_nbr;
+	int			error;
+	t_fork		*forks;
+	t_philo		*philos;
 
 };
 
@@ -108,7 +107,8 @@ long	ft_atol(const char *str, t_data *p);
 int		init_structure(t_data *data);
 void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode, t_data *data);
 void	*safe_malloc(size_t bytes, t_data *data);
-int		safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+int		safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+			void *data, t_opcode opcode);
 //Philo_utils
 void	error_exit(const char *error);
 void	leaving_safely(t_data *data);
@@ -133,12 +133,14 @@ void	set_bool(t_mtx *mutex, bool *dest, bool value, t_data *data);
 
 //synchro utils
 void	waiting_all_threads(t_data *data);
-bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr, t_data *data);
+bool	all_threads_running(t_mtx *mutex, long *threads, long philo_nbr,
+			t_data *data);
 void	de_shyncronize_philos(t_philo *philo);
 void	increase_long(t_mtx *mutex, long *value, t_data *data);
+void	dinner_beggin_utils(t_data *data, int i);
+int		dinner_beggin_utils_extended(t_data *data, int i);
 //WRITE functions
 void	write_status(t_philo_status status, t_philo *philo, t_data *data);
 //monitor
 void	*monitor_dinner(void *data);
-
-# endif
+#endif

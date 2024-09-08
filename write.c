@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aleexcolleet <marvin@42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/08 19:17:07 by aleexcolleet      #+#    #+#             */
+/*   Updated: 2024/09/08 19:17:12 by aleexcolleet     ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 //same as write but useful for debugging. Gotta change the constant debug mode 0
